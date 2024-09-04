@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+
 import React from "react";
 import {
   Card,
@@ -10,9 +12,9 @@ import {
   CardFooter,
   CardContent,
 } from "@/components/ui/card";
-//import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-//import Style from "../app/styles/DashboardSection.module.css";
+import Style from "../app/styles/DashboardSection.module.css";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "@/context/userContext";
 import { apiGet } from "@/helpers/axiosRequest";
@@ -20,7 +22,7 @@ import { apiGet } from "@/helpers/axiosRequest";
 interface Stats {
   albums: number;
   artists: number; // Updated to reflect total artists instead of labels
-  labels: number; // Added to reflect totalBalance
+  balance: number; // Added to reflect totalBalance
   upcomingReleases: number; // Added to reflect upcoming releases (Processing status)
 }
 
@@ -63,7 +65,7 @@ export default function DashboradSection() {
   const [stats, setStats] = useState<Stats>({
     albums: 0,
     artists: 0,
-    labels: 0,
+    balance: 0,
     upcomingReleases: 0,
   });
 
@@ -74,7 +76,7 @@ export default function DashboradSection() {
 
   const fetchNumberCounts = async () => {
     try {
-      const response = await apiGet(`/api/numbers`);
+      const response = await apiGet(`/api/numbers?labelId=${labelId}`);
 
       console.log(response);
       console.log(response.data);
@@ -83,7 +85,7 @@ export default function DashboradSection() {
         setStats({
           albums: response.data.totalAlbums,
           artists: response.data.totalArtist,
-          labels: response.data.totalLabels,
+          balance: response.data.totalBalance,
           upcomingReleases: response.data.upcomingReleases,
         });
       }
@@ -95,7 +97,7 @@ export default function DashboradSection() {
   const fetchNewRelese = async (labelId: string) => {
     try {
       const response = await apiGet(
-        `/api/albums/filter?status=Live&limit=3}`
+        `/api/albums/filter?labelid=${labelId}&status=Live&limit=3}`
       );
       if (response.success) {
         setNewReleseData(response.data);
@@ -108,7 +110,7 @@ export default function DashboradSection() {
   const fetchDraft = async (labelId: string) => {
     try {
       const response = await apiGet(
-        `/api/albums/filter?status=Draft&limit=3}`
+        `/api/albums/filter?labelid=${labelId}&status=Draft&limit=3}`
       );
       if (response.success) {
         setDraftAlbums(response.data);
@@ -166,8 +168,8 @@ export default function DashboradSection() {
             </Card>
             <Card>
               <CardHeader className="pb-3">
-                <CardDescription>Total Labels</CardDescription>
-                <CardTitle className="text-4xl">{stats.labels}</CardTitle>
+                <CardDescription>Revenue</CardDescription>
+                <CardTitle className="text-4xl">₹{stats.balance}</CardTitle>
               </CardHeader>
             </Card>
             <Card>
@@ -199,7 +201,6 @@ export default function DashboradSection() {
                               key={album._id}
                             >
                               <div className="flex items-center gap-2">
-                         
                                 <img
                                   src={`${process.env.NEXT_PUBLIC_AWS_S3_FOLDER_PATH}albums/07c1a${album._id}ba3/cover/${album.thumbnail}`}
                                   alt="Album Cover"
@@ -398,7 +399,17 @@ export default function DashboradSection() {
                           </span>
                         </Link>
 
-                      
+                        <Link
+                          href={"support"}
+                          className="flex flex-col items-center gap-2 group"
+                        >
+                          <div className="bg-[#3B82F6] rounded-full QuickAccessItem group-hover:bg-[#2563EB] transition-colors">
+                            <i className="bi bi-headset QuickAccessItemIcon text-white"></i>
+                          </div>
+                          <span className="text-sm text-[#3B82F6] group-hover:text-[#2563EB] transition-colors">
+                            Support
+                          </span>
+                        </Link>
                       </div>
                     </CardContent>
                   </Card>
@@ -449,7 +460,6 @@ export default function DashboradSection() {
                           Taylor Swift Album Announcement
                         </div>
                         <div className="text-xs text-muted-foreground">
-                         
                           New album "Renaissance" coming August 1
                         </div>
                       </div>

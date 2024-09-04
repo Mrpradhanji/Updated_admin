@@ -157,6 +157,11 @@ const Navbar = () => {
                  <span className="nav__name">Emails</span>
                 </Link>
 
+                <Link href="/support" className="nav__link">
+                  <i className="bi bi-chat-left nav__icon"></i>
+                  <span className="nav__name">Support</span>
+                </Link>
+
 
                 
               </div>
