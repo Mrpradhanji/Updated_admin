@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/no-unescaped-entities */
 "use client";
+import React from "react";
 import {
   Card,
   CardHeader,
@@ -7,9 +10,9 @@ import {
   CardFooter,
   CardContent,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+//import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Style from "../app/styles/DashboardSection.module.css";
+//import Style from "../app/styles/DashboardSection.module.css";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "@/context/userContext";
 import { apiGet } from "@/helpers/axiosRequest";
@@ -196,6 +199,7 @@ export default function DashboradSection() {
                               key={album._id}
                             >
                               <div className="flex items-center gap-2">
+                         
                                 <img
                                   src={`${process.env.NEXT_PUBLIC_AWS_S3_FOLDER_PATH}albums/07c1a${album._id}ba3/cover/${album.thumbnail}`}
                                   alt="Album Cover"
@@ -394,17 +398,7 @@ export default function DashboradSection() {
                           </span>
                         </Link>
 
-                        <Link
-                          href={"support"}
-                          className="flex flex-col items-center gap-2 group"
-                        >
-                          <div className="bg-[#3B82F6] rounded-full QuickAccessItem group-hover:bg-[#2563EB] transition-colors">
-                            <i className="bi bi-headset QuickAccessItemIcon text-white"></i>
-                          </div>
-                          <span className="text-sm text-[#3B82F6] group-hover:text-[#2563EB] transition-colors">
-                            Support
-                          </span>
-                        </Link>
+                      
                       </div>
                     </CardContent>
                   </Card>
@@ -455,6 +449,7 @@ export default function DashboradSection() {
                           Taylor Swift Album Announcement
                         </div>
                         <div className="text-xs text-muted-foreground">
+                         
                           New album "Renaissance" coming August 1
                         </div>
                       </div>

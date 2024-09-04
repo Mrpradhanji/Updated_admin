@@ -145,15 +145,20 @@ const Navbar = () => {
                   <i className="bi bi bi-mic nav__icon"></i>
                   <span className="nav__name">Artists</span>
                 </Link>
+
                 <Link href="/profile" className="nav__link " onClick={handleLinkClick}>
                 <i className="bi bi-person nav__icon"></i>
                   <span className="nav__name">Profile</span>
                 </Link>
 
-                <Link href="/support" className="nav__link">
-                  <i className="bi bi-chat-left nav__icon"></i>
-                  <span className="nav__name">Support</span>
+
+                <Link href="/emails" className="nav__link" onClick={handleLinkClick}>
+                 <i className="bi bi-envelope nav__icon"></i>
+                 <span className="nav__name">Emails</span>
                 </Link>
+
+
+                
               </div>
 
             

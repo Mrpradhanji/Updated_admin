@@ -1,13 +1,19 @@
 // src/app/api/sendEmail/route.ts
+import { connect } from '@/dbConfig/dbConfig';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
+    //database connect
+    await connect();
+    //get data from request body
     const { to, subject, message } = await request.json();
-
+      
+    //Validation required fields
     if (!to || !subject || !message) {
       return NextResponse.json({
         success: false,
