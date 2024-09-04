@@ -40,13 +40,7 @@ const Navbar = () => {
         console.log("sdf");
       }, 5000);
     }
-    
-
-    
-
   };
-
-
 
   return (
     <div>
@@ -161,12 +155,8 @@ const Navbar = () => {
                   <i className="bi bi-chat-left nav__icon"></i>
                   <span className="nav__name">Support</span>
                 </Link>
-
-
                 
               </div>
-
-            
             </div>
           </div>
 
